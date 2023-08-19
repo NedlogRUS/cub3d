@@ -1,0 +1,9 @@
+
+.DS_Store
+cub3d
+*.o
+/obj
+/libft/obj
+/get_next_line/obj
+.vscode/
+/libft/libft.a
