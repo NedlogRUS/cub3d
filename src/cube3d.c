@@ -2,43 +2,43 @@
 
 int worldMap[mapWidth][mapHeight] =
 {
-  {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,7,7,7,7,7,7,7,7},
-  {4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-  {4,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-  {4,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7},
-  {4,0,3,0,0,0,0,0,0,0,0,0,0,0,0,0,7,0,0,0,0,0,0,7},
-  {4,0,4,0,0,0,0,5,5,5,5,5,5,5,5,5,7,7,0,7,7,7,7,7},
-  {4,0,5,0,0,0,0,5,0,5,0,5,0,5,0,5,7,0,0,0,7,7,7,1},
-  {4,0,6,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-  {4,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,7,7,7,1},
-  {4,0,8,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,0,0,0,8},
-  {4,0,0,0,0,0,0,5,0,0,0,0,0,0,0,5,7,0,0,0,7,7,7,1},
-  {4,0,0,0,0,0,0,5,5,5,5,0,5,5,5,5,7,7,7,7,7,7,7,1},
-  {6,6,6,6,6,6,6,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-  {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-  {6,6,6,6,6,6,0,6,6,6,6,0,6,6,6,6,6,6,6,6,6,6,6,6},
-  {4,4,4,4,4,4,0,4,4,4,6,0,6,2,2,2,2,2,2,2,3,3,3,3},
-  {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-  {4,0,0,0,0,0,0,0,0,0,0,0,6,2,0,0,5,0,0,2,0,0,0,2},
-  {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-  {4,0,6,0,6,0,0,0,0,4,6,0,0,0,0,0,5,0,0,0,0,0,0,2},
-  {4,0,0,5,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,2,0,2,2},
-  {4,0,6,0,6,0,0,0,0,4,6,0,6,2,0,0,5,0,0,2,0,0,0,2},
-  {4,0,0,0,0,0,0,0,0,4,6,0,6,2,0,0,0,0,0,2,0,0,0,2},
-  {4,4,4,4,4,4,4,4,4,4,1,1,1,2,2,2,2,2,2,3,3,3,3,3}
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,2,2,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,3,0,0,0,3,0,0,0,1},
+  {1,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,2,2,0,2,2,0,0,0,0,3,0,3,0,3,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,1},
+  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,0,0,0,5,0,4,0,0,0,0,0,0,0,5,0,0,0,0,0,0,1},
+  {1,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,0,1},
+  {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+  {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-void draw_vertical_line(t_data *c3d, int x)
-{
-    int y;
+// void draw_vertical_line(t_data *c3d, int x)
+// {
+//     int y;
 
-    y = c3d->drawStart;
-    while (y < c3d->drawEnd)
-    {
-        mlx_pixel_put(c3d->mlx, c3d->win, x, y, c3d->color);
-        y++;
-    }
-}
+//     y = c3d->drawStart;
+//     while (y < c3d->drawEnd)
+//     {
+//         mlx_pixel_put(c3d->mlx, c3d->win, x, y, c3d->color);
+//         y++;
+//     }
+// }
 
 void raycasting(t_data *c3d)
 {
@@ -132,8 +132,38 @@ void raycasting(t_data *c3d)
         {
             c3d->color = c3d->color / 2;
         }
+		// Calculate texture coordinates
+        double wallX; // Where exactly the wall was hit
+        if (c3d->side == 0)
+            wallX = c3d->posY + c3d->perpWallDist * c3d->rayDirY;
+        else
+            wallX = c3d->posX + c3d->perpWallDist * c3d->rayDirX;
+        wallX -= floor(wallX);
 
-        draw_vertical_line(c3d, x);
+        // Calculate texture coordinates based on the wallX
+        int texX = (int)(wallX * (double)c3d->img->width);
+        if ((c3d->side == 0 && c3d->rayDirX > 0) || (c3d->side == 1 && c3d->rayDirY < 0))
+            texX = c3d->img->width - texX - 1;
+
+        // Calculate the height of the texture column to draw
+        int texHeight = (int)(screenHeight / c3d->perpWallDist);
+
+        // Calculate the starting and ending positions to draw the texture column
+        int drawStart = -texHeight / 2 + screenHeight / 2;
+        if (drawStart < 0)
+            drawStart = 0;
+        int drawEnd = texHeight / 2 + screenHeight / 2;
+        if (drawEnd >= screenHeight)
+            drawEnd = screenHeight - 1;
+
+        // Draw the textured wall column
+        for (int y = drawStart; y < drawEnd; y++)
+        {
+            int texY = (int)(((y - screenHeight / 2 + texHeight / 2) * c3d->img->height) / texHeight);
+            int color = c3d->img->addr[texY * c3d->img->width + texX];
+            mlx_pixel_put(c3d->mlx, c3d->win, x, y, color);
+        }
+        // draw_vertical_line(c3d, x);
     }
 }
 
@@ -178,6 +208,14 @@ int updateCameraPosition(int keycode, t_data *c3d)
     return (0);
 }
 
+void		inittext(t_data *c3d)
+{
+	c3d->img = malloc(sizeof(t_img));
+	c3d->img->img = mlx_xpm_file_to_image(c3d->mlx, c3d->textpath, &c3d->img->width, &c3d->img->height);
+	c3d->img->addr = (int *)mlx_get_data_addr(c3d->img->img, &c3d->img->bits_per_pixel, &c3d->img->line_length, &c3d->img->endian);
+	return ;
+}
+
 int main()
 {
     t_data *c3d;
@@ -188,12 +226,14 @@ int main()
     c3d->dirY = 0;
     c3d->planeX = 0; 
     c3d->planeY = 0.66;
-    c3d->moveSpeed = 0.3;
-    c3d->rotSpeed = 0.1;
+    c3d->moveSpeed = 0.5;
+    c3d->rotSpeed = 0.2;
 	c3d->floorColor = 0x35960B;
 	c3d->ceilingColor = 0x6FA8DC;
     c3d->mlx = mlx_init();
     c3d->win = mlx_new_window(c3d->mlx, screenWidth, screenHeight, "Raycaster");
+	c3d->textpath = ft_strdup("./sprites/wall.xpm");
+	inittext(c3d);
     raycasting(c3d);  
     mlx_hook(c3d->win, 2, 1L << 0, updateCameraPosition, c3d);
     mlx_loop(c3d->mlx);

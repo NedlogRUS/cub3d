@@ -9,8 +9,8 @@
 
 # define screenWidth 640
 # define screenHeight 480
-#define texWidth 64
-#define texHeight 64
+// #define texWidth 100
+// #define texHeight 100
 # define mapWidth 24
 # define mapHeight 24
 
@@ -48,6 +48,20 @@ typedef struct s_data
 	double	oldPlaneX;//
 	int		floorColor;
 	int		ceilingColor;
+	char	*textpath;
+	struct s_img	*img;
 }				t_data;
+
+typedef struct	s_img
+{
+	void	*img;
+	int		*addr;
+	char 	**data;//
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}				t_img;
 
 #endif
