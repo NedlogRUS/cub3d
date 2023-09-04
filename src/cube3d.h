@@ -9,23 +9,21 @@
 
 # define screenWidth 640
 # define screenHeight 480
-// #define texWidth 100
-// #define texHeight 100
-# define mapWidth 24
-# define mapHeight 24
+# define mapWidth 7
+# define mapHeight 5
 
 typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
-	double	posX;//
-	double	posY;//
-	double	dirX;//
-	double	dirY;//
-	double	planeX;//
-	double	planeY;//
-	double	moveSpeed;//
-	double	rotSpeed;//
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	moveSpeed;
+	double	rotSpeed;
 	double	cameraX;
 	double	rayDirX;
 	double	rayDirY;
@@ -44,12 +42,20 @@ typedef struct s_data
 	int		drawStart;
 	int		drawEnd;
 	int		color;
-	double	oldDirX;//
-	double	oldPlaneX;//
+	double	oldDirX;
+	double	oldPlaneX;
 	int		floorColor;
 	int		ceilingColor;
-	char	*textpath;
-	struct s_img	*img;
+	char	*textnorth;
+	char	*textwest;
+	char	*textsouth;
+	char	*texteast;
+	double	wallX;
+	struct s_img	*wallT;
+	struct s_img	*north;
+	struct s_img	*west;
+	struct s_img	*south;
+	struct s_img	*east;
 }				t_data;
 
 typedef struct	s_img
