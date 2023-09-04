@@ -14,7 +14,6 @@ char worldMap[mapWidth][mapHeight] =
 void raycasting(t_data *c3d)
 {
     mlx_clear_window(c3d->mlx, c3d->win);
-
     // Draw the ceiling (upper half of the screen)
     int y = 0;
     while (y < screenHeight / 2)
@@ -27,7 +26,6 @@ void raycasting(t_data *c3d)
         }
         y++;
     }
-
     // Draw the floor (lower half of the screen)
     y = screenHeight / 2;
     while (y < screenHeight)
@@ -40,7 +38,6 @@ void raycasting(t_data *c3d)
         }
         y++;
     }
-
     int x = 0;
     while (x < screenWidth)
     {
@@ -88,7 +85,7 @@ void raycasting(t_data *c3d)
                 c3d->mapY += c3d->stepY;
                 c3d->side = 1;
             }
-            if (worldMap[c3d->mapX][c3d->mapY] != '0')
+            if (worldMap[c3d->mapX][c3d->mapY] == '1')
                 c3d->hit = 1;
         }
         if (c3d->side == 0)
@@ -106,16 +103,13 @@ void raycasting(t_data *c3d)
         {
             c3d->color = c3d->color / 2;
         }
-
         // Calculate texture coordinates
         if (c3d->side == 0)
             c3d->wallX = c3d->posY + c3d->perpWallDist * c3d->rayDirY;
         else
             c3d->wallX = c3d->posX + c3d->perpWallDist * c3d->rayDirX;
         c3d->wallX -= floor(c3d->wallX);
-
         // Determine which wall texture to use based on the side
-        // t_img *wallT;
         if (c3d->side == 0) // East or West wall
         {
             if (c3d->rayDirX > 0)
@@ -130,15 +124,12 @@ void raycasting(t_data *c3d)
             else
                 c3d->wallT = c3d->south;
         }
-
         // Calculate texture coordinates based on the wallX
         int texX = (int)(c3d->wallX * (double)c3d->wallT->width);
         if ((c3d->side == 0 && c3d->rayDirX > 0) || (c3d->side == 1 && c3d->rayDirY < 0))
             texX = c3d->wallT->width - texX - 1;
-
         // Calculate the height of the texture column to draw
         int texHeight = (int)(screenHeight / c3d->perpWallDist);
-
         // Calculate the starting and ending positions to draw the texture column
         int drawStart = -texHeight / 2 + screenHeight / 2;
         if (drawStart < 0)
@@ -146,7 +137,6 @@ void raycasting(t_data *c3d)
         int drawEnd = texHeight / 2 + screenHeight / 2;
         if (drawEnd >= screenHeight)
             drawEnd = screenHeight - 1;
-
         // Draw the textured wall column
         int y = drawStart;
         while (y < drawEnd)
@@ -162,36 +152,35 @@ void raycasting(t_data *c3d)
 
 int updateCameraPosition(int keycode, t_data *c3d)
 {
-	// printf("keycode:%d\n", keycode);
     if (keycode == 126 || keycode == 13)
     {
-        if (worldMap[(int)(c3d->posX + c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] == '0')
+        if (worldMap[(int)(c3d->posX + c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] != '1')
             c3d->posX += c3d->dirX * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY + c3d->dirY * c3d->moveSpeed)] == '0')
+        if (worldMap[(int)c3d->posX][(int)(c3d->posY + c3d->dirY * c3d->moveSpeed)] != '1')
             c3d->posY += c3d->dirY * c3d->moveSpeed;
         raycasting(c3d);
     }
     if (keycode == 125 || keycode == 1) 
     {
-        if (worldMap[(int)(c3d->posX - c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] == '0')
+        if (worldMap[(int)(c3d->posX - c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] != '1')
             c3d->posX -= c3d->dirX * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY - c3d->dirY * c3d->moveSpeed)] == '0')
+        if (worldMap[(int)c3d->posX][(int)(c3d->posY - c3d->dirY * c3d->moveSpeed)] != '1')
             c3d->posY -= c3d->dirY * c3d->moveSpeed;
         raycasting(c3d);
     }
 	if (keycode == 2)
     {
-        if (worldMap[(int)(c3d->posX + c3d->dirY * c3d->moveSpeed)][(int)c3d->posY] == '0')
+        if (worldMap[(int)(c3d->posX + c3d->dirY * c3d->moveSpeed)][(int)c3d->posY] != '1')
             c3d->posX += c3d->dirY * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY - c3d->dirX * c3d->moveSpeed)] == '0')
+        if (worldMap[(int)c3d->posX][(int)(c3d->posY - c3d->dirX * c3d->moveSpeed)] != '1')
             c3d->posY -= c3d->dirX * c3d->moveSpeed;
         raycasting(c3d);
     }
     if (keycode == 0) 
     {
-        if (worldMap[(int)(c3d->posX - c3d->dirY * c3d->moveSpeed)][(int)c3d->posY] == '0')
+        if (worldMap[(int)(c3d->posX - c3d->dirY * c3d->moveSpeed)][(int)c3d->posY] != '1')
             c3d->posX -= c3d->dirY * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY + c3d->dirX * c3d->moveSpeed)] == '0')
+        if (worldMap[(int)c3d->posX][(int)(c3d->posY + c3d->dirX * c3d->moveSpeed)] != '1')
             c3d->posY += c3d->dirX * c3d->moveSpeed;
         raycasting(c3d);
     }
@@ -245,7 +234,7 @@ int main()
     c3d->dirY = -1;
     c3d->planeX = -0.66; 
     c3d->planeY = 0;
-    c3d->moveSpeed = 0.5;
+    c3d->moveSpeed = 0.3;
     c3d->rotSpeed = 0.2;
 	c3d->floorColor = 0x35960B;
 	c3d->ceilingColor = 0x6FA8DC;
