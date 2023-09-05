@@ -10,8 +10,8 @@
 
 # define SCREENWIDTH 640
 # define SCREENHEIGHT 480
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
+# define MAPWIDTH 33
+# define MAPHEIGHT 16
 
 typedef struct s_map
 {
