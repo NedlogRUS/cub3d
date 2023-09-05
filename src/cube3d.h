@@ -6,7 +6,7 @@
 /*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:39:52 by apanikov          #+#    #+#             */
-/*   Updated: 2023/09/05 22:30:54 by apanikov         ###   ########.fr       */
+/*   Updated: 2023/09/05 23:02:56 by apanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,9 @@ void	get_texts_colors(t_map *map);
 int		arrsize(char **arr);
 void	trim_spaces(char **col_arr);
 int 	bear_claws(t_data *c3d);
+void	floor_ceiling(t_data *c3d);
+void	determine_ray_intersects_distances(t_data *c3d);
+void	hit_wall(t_data *c3d);
+void	calculating_parameters_rendering_wall(t_data *c3d);
 
 #endif

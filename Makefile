@@ -2,7 +2,8 @@ NAME = cub3D
 SRCDIR = src
 OBJDIR = obj
 MLX_DIR = ./mlx
-SRCS = $(addprefix $(SRCDIR)/, cube3d.c parsing.c parse_colors.c parse_map.c parse_path.c parse_utils.c convert_map.c raycasting.c)
+SRCS = $(addprefix $(SRCDIR)/, cube3d.c parsing.c parse_colors.c parse_map.c \
+	parse_path.c parse_utils.c convert_map.c raycasting.c raycasting2.c)
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 CC = cc
 RM = rm -rf
