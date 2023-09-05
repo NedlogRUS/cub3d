@@ -1,25 +1,19 @@
 #include "cube3d.h"
 
-char worldMap[mapWidth][mapHeight] =
+int cubclose(void)
 {
-  {'1','1','1','1','1'},
-  {'1','0','0','0','1'},
-  {'1','0','0','0','1'},
-  {'1','0','1','1','1'},
-  {'1','0','0','0','1'},
-  {'1','0','0','0','1'},
-  {'1','1','1','1','1'}
-};
+    printf("Thanks for playing\n");
+    system("leaks cub3D");
+    exit(0);
+}
 
 void raycasting(t_data *c3d)
 {
     mlx_clear_window(c3d->mlx, c3d->win);
     // Draw the ceiling (upper half of the screen)
-    int y = 0;
-    while (y < screenHeight / 2)
+    for (int y = 0; y < SCREENHEIGHT / 2; y++)
     {
-        int x = 0;
-        while (x < screenWidth)
+        for (int x = 0; x < SCREENWIDTH; x++)
         {
             mlx_pixel_put(c3d->mlx, c3d->win, x, y, c3d->ceilingColor);
             x++;
@@ -27,21 +21,18 @@ void raycasting(t_data *c3d)
         y++;
     }
     // Draw the floor (lower half of the screen)
-    y = screenHeight / 2;
-    while (y < screenHeight)
+    for (int y = SCREENHEIGHT / 2; y < SCREENHEIGHT; y++)
     {
-        int x = 0;
-        while (x < screenWidth)
+        for (int x = 0; x < SCREENWIDTH; x++)
         {
             mlx_pixel_put(c3d->mlx, c3d->win, x, y, c3d->floorColor);
             x++;
         }
         y++;
     }
-    int x = 0;
-    while (x < screenWidth)
+    for (int x = 0; x < SCREENWIDTH; x++)
     {
-        c3d->cameraX = 2 * x / (double)screenWidth - 1;
+        c3d->cameraX = 2 * x / (double)SCREENWIDTH - 1;
         c3d->rayDirX = c3d->dirX + c3d->planeX * c3d->cameraX;
         c3d->rayDirY = c3d->dirY + c3d->planeY * c3d->cameraX;
         c3d->mapX = (int)c3d->posX;
@@ -85,20 +76,29 @@ void raycasting(t_data *c3d)
                 c3d->mapY += c3d->stepY;
                 c3d->side = 1;
             }
-            if (worldMap[c3d->mapX][c3d->mapY] == '1')
+            if (c3d->map->int_arr[c3d->mapX][c3d->mapY] > 0)
                 c3d->hit = 1;
         }
         if (c3d->side == 0)
             c3d->perpWallDist = (c3d->sideDistX - c3d->deltaDistX);
         else
             c3d->perpWallDist = (c3d->sideDistY - c3d->deltaDistY);
-        c3d->lineHeight = (int)(screenHeight / c3d->perpWallDist);
-        c3d->drawStart = -c3d->lineHeight / 2 + screenHeight / 2;
+        c3d->lineHeight = (int)(SCREENHEIGHT / c3d->perpWallDist);
+        c3d->drawStart = -c3d->lineHeight / 2 + SCREENHEIGHT / 2;
         if (c3d->drawStart < 0)
             c3d->drawStart = 0;
-        c3d->drawEnd = c3d->lineHeight / 2 + screenHeight / 2;
-        if (c3d->drawEnd >= screenHeight)
-            c3d->drawEnd = screenHeight - 1;
+        c3d->drawEnd = c3d->lineHeight / 2 + SCREENHEIGHT / 2;
+        if (c3d->drawEnd >= SCREENHEIGHT)
+            c3d->drawEnd = SCREENHEIGHT - 1;
+
+        switch (c3d->map->int_arr[c3d->mapX][c3d->mapY])
+        {
+            case 1: c3d->color = 0xFF0000; break; // Red
+            case 2: c3d->color = 0x00FF00; break; // Green
+            case 3: c3d->color = 0x0000FF; break; // Blue
+            case 4: c3d->color = 0xFFFFFF; break; // White
+            default: c3d->color = 0xFFFF00; break; // Yellow
+        }
         if (c3d->side == 1)
         {
             c3d->color = c3d->color / 2;
@@ -150,21 +150,22 @@ void raycasting(t_data *c3d)
     }
 }
 
+
 int updateCameraPosition(int keycode, t_data *c3d)
 {
     if (keycode == 126 || keycode == 13)
     {
-        if (worldMap[(int)(c3d->posX + c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] != '1')
+        if (c3d->map->int_arr[(int)(c3d->posX + c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] == 0)
             c3d->posX += c3d->dirX * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY + c3d->dirY * c3d->moveSpeed)] != '1')
+        if (c3d->map->int_arr[(int)c3d->posX][(int)(c3d->posY + c3d->dirY * c3d->moveSpeed)] == 0)
             c3d->posY += c3d->dirY * c3d->moveSpeed;
         raycasting(c3d);
     }
     if (keycode == 125 || keycode == 1) 
     {
-        if (worldMap[(int)(c3d->posX - c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] != '1')
+        if (c3d->map->int_arr[(int)(c3d->posX - c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] == 0)
             c3d->posX -= c3d->dirX * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY - c3d->dirY * c3d->moveSpeed)] != '1')
+        if (c3d->map->int_arr[(int)c3d->posX][(int)(c3d->posY - c3d->dirY * c3d->moveSpeed)] == 0)
             c3d->posY -= c3d->dirY * c3d->moveSpeed;
         raycasting(c3d);
     }
@@ -207,70 +208,48 @@ int updateCameraPosition(int keycode, t_data *c3d)
     return (0);
 }
 
-void		inittext(t_data *c3d)
+int keyhandle(int keycode, t_data *c3d)
 {
-	c3d->north = malloc(sizeof(t_img));
-	c3d->north->img = mlx_xpm_file_to_image(c3d->mlx, c3d->textnorth, &c3d->north->width, &c3d->north->height);
-	c3d->north->addr = (int *)mlx_get_data_addr(c3d->north->img, &c3d->north->bits_per_pixel, &c3d->north->line_length, &c3d->north->endian);
-	c3d->west = malloc(sizeof(t_img));
-	c3d->west->img = mlx_xpm_file_to_image(c3d->mlx, c3d->textwest, &c3d->west->width, &c3d->west->height);
-	c3d->west->addr = (int *)mlx_get_data_addr(c3d->west->img, &c3d->west->bits_per_pixel, &c3d->west->line_length, &c3d->west->endian);
-	c3d->south = malloc(sizeof(t_img));
-	c3d->south->img = mlx_xpm_file_to_image(c3d->mlx, c3d->textsouth, &c3d->south->width, &c3d->south->height);
-	c3d->south->addr = (int *)mlx_get_data_addr(c3d->south->img, &c3d->south->bits_per_pixel, &c3d->south->line_length, &c3d->south->endian);
-	c3d->east = malloc(sizeof(t_img));
-	c3d->east->img = mlx_xpm_file_to_image(c3d->mlx, c3d->texteast, &c3d->east->width, &c3d->east->height);
-	c3d->east->addr = (int *)mlx_get_data_addr(c3d->east->img, &c3d->east->bits_per_pixel, &c3d->east->line_length, &c3d->east->endian);
-	return ;
+    if (keycode == 53)
+        cubclose();
+    if (keycode == 126 || keycode == 125 || keycode == 124 || keycode == 123)
+        updateCameraPosition(keycode, c3d);
+    return (0);
 }
 
-int main()
+int	mouse_move(int x, int y, t_data *c3d)
 {
-    t_data *c3d;
+	mlx_mouse_hide();
+	mlx_mouse_get_pos(c3d->win, &x, &y);
+	if (x > SCREENWIDTH / 2)
+		updateCameraPosition(124, c3d);
+	if (x < SCREENWIDTH / 2)
+		updateCameraPosition(123, c3d);
+	mlx_mouse_move(c3d->win, SCREENWIDTH / 2, y / 2);
+	return (0);
+}
+
+int main(int argc, char **argv)
+{
+    t_data  *c3d;
+    t_map   *map;
+
     c3d = malloc(sizeof(t_data));
-    c3d->posX = 2;
-    c3d->posY = 2;
-    c3d->dirX = 0; 
-    c3d->dirY = -1;
-    c3d->planeX = -0.66; 
+    map = malloc(sizeof(t_map));
+    c3d->map = map;
+    parsing(map, argv, argc, c3d);
+    c3d->dirX = 0;
+    c3d->dirY = 1;
+    c3d->planeX = 0.66;
     c3d->planeY = 0;
     c3d->moveSpeed = 0.3;
-    c3d->rotSpeed = 0.2;
-	c3d->floorColor = 0x35960B;
-	c3d->ceilingColor = 0x6FA8DC;
+    c3d->rotSpeed = 0.1;
     c3d->mlx = mlx_init();
-    c3d->win = mlx_new_window(c3d->mlx, screenWidth, screenHeight, "Raycaster");
-	c3d->textnorth = ft_strdup("./sprites/NORTH.xpm");
-	c3d->textwest = ft_strdup("./sprites/WEST.xpm");
-	c3d->textsouth = ft_strdup("./sprites/SOUTH.xpm");
-	c3d->texteast = ft_strdup("./sprites/EAST.xpm");
-	inittext(c3d);
-    raycasting(c3d);  
-    mlx_hook(c3d->win, 2, 1L << 0, updateCameraPosition, c3d);
+    c3d->win = mlx_new_window(c3d->mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
+    raycasting(c3d);
+    mlx_hook(c3d->win, 2, 1L << 0, keyhandle, c3d);
+    mlx_hook(c3d->win, 17, 1L << 0, cubclose, c3d);
+    mlx_hook(c3d->win, 6, 1L << 6, mouse_move, c3d);
     mlx_loop(c3d->mlx);
     return 0;
 }
-
-// WEAST
-    // c3d->dirX = 0; 
-    // c3d->dirY = -1;
-    // c3d->planeX = -0.66; 
-    // c3d->planeY = 0;
-
-// EAST
-//     c3d->dirX = 0; 
-//     c3d->dirY = 1;
-//     c3d->planeX = 0.66; 
-//     c3d->planeY = 0;
-
-// SOUTH
-//     c3d->dirX = 1; 
-//     c3d->dirY = 0;
-//     c3d->planeX = 0; 
-//     c3d->planeY = -0.66;
-
-// NORTH  
-// 	c3d->dirX = -1; 
-//     c3d->dirY = 0;
-//     c3d->planeX = 0; 
-//     c3d->planeY = 0.66;
