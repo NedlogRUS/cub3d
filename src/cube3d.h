@@ -30,6 +30,9 @@ typedef struct s_map
 
 typedef struct s_data
 {
+	int		add_l;
+	int		add_r;
+	int		step;
 	void	*mlx;
 	void	*win;
 	double	posX;
@@ -73,6 +76,8 @@ typedef struct s_data
 	struct s_img	*west;
 	struct s_img	*south;
 	struct s_img	*east;
+	void			*claw_left;
+	void			*claw_right;
 }				t_data;
 
 typedef struct	s_img
@@ -104,5 +109,6 @@ void	convert_to_int(t_map *map);
 void	get_texts_colors(t_map *map);
 int		arrsize(char **arr);
 void	trim_spaces(char **col_arr);
+int 	bear_claws(t_data *c3d);
 
 #endif

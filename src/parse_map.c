@@ -39,6 +39,8 @@ int	check_map(char **line, t_map *map)
 	return (1);
 }
 
+
+
 void	check_map_final(int fd, char *line)
 {
 	if (!line)
@@ -63,8 +65,8 @@ void	check_walls(t_map *map, int x, int y, t_data *c3d)
 		{
 			if (map->map_arr[y][x] == map->spawn_orient)
 			{
-				c3d->posX = y;
-				c3d->posY = x;
+				c3d->posX = y + 0.5;
+				c3d->posY = x + 0.5;
 				map->map_arr[y][x] = '0';
 			}
 			if (map->map_arr[y][x] == '0')
