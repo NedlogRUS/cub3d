@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/05 21:39:52 by apanikov          #+#    #+#             */
+/*   Updated: 2023/09/05 22:30:54 by apanikov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
@@ -57,6 +69,9 @@ typedef struct s_data
 	int		stepY;
 	int		hit;
 	int		side;
+	int 	texX;
+	int		texY;
+	int		texHeight;
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
@@ -93,6 +108,7 @@ typedef struct	s_img
 	int		height;
 }				t_img;
 
+void	raycasting(t_data *c3d);
 void    parsing(t_map *map, char **filename, int ac, t_data *c3d);
 int		id_check(char *ids);
 void	arrcpy(char **src, char **dest);
