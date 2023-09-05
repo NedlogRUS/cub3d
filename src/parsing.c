@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adavitav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:48:27 by adavitav          #+#    #+#             */
-/*   Updated: 2023/09/01 17:48:28 by adavitav         ###   ########.fr       */
+/*   Updated: 2023/09/05 15:27:22 by apanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,5 @@ void	parsing(t_map *map, char **filename, int ac, t_data *c3d)
 	if (c3d->posX == -1)
 		parse_error("No player position");
 	// set_pos(map);
-	convert_to_int(map);
+	// convert_to_int(map);
 }

@@ -10,8 +10,8 @@
 
 # define SCREENWIDTH 640
 # define SCREENHEIGHT 480
-# define MAPWIDTH 24
-# define MAPHEIGHT 24
+# define MAPWIDTH 33
+# define MAPHEIGHT 16
 
 typedef struct s_map
 {
@@ -63,7 +63,29 @@ typedef struct s_data
 	int		floorColor;
 	int		ceilingColor;
 	t_map	*map;
+	char	*textnorth;
+	char	*textwest;
+	char	*textsouth;
+	char	*texteast;
+	double	wallX;
+	struct s_img	*wallT;
+	struct s_img	*north;
+	struct s_img	*west;
+	struct s_img	*south;
+	struct s_img	*east;
 }				t_data;
+
+typedef struct	s_img
+{
+	void	*img;
+	int		*addr;
+	char 	**data;//
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}				t_img;
 
 void    parsing(t_map *map, char **filename, int ac, t_data *c3d);
 int		id_check(char *ids);
