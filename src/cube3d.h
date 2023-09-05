@@ -32,14 +32,14 @@ typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
-	double	posX;//
-	double	posY;//
-	double	dirX;//
-	double	dirY;//
-	double	planeX;//
-	double	planeY;//
-	double	moveSpeed;//
-	double	rotSpeed;//
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	moveSpeed;
+	double	rotSpeed;
 	double	cameraX;
 	double	rayDirX;
 	double	rayDirY;
@@ -58,8 +58,8 @@ typedef struct s_data
 	int		drawStart;
 	int		drawEnd;
 	int		color;
-	double	oldDirX;//
-	double	oldPlaneX;//
+	double	oldDirX;
+	double	oldPlaneX;
 	int		floorColor;
 	int		ceilingColor;
 	t_map	*map;
