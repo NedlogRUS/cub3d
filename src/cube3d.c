@@ -137,6 +137,7 @@ void raycasting(t_data *c3d)
         }
         x++;
     }
+    bear_claws(c3d);
 }
 
 int updateCameraPosition(int keycode, t_data *c3d)
@@ -224,6 +225,13 @@ int keyhandle(int keycode, t_data *c3d)
 {
     if (keycode == 53)
         cubclose();
+    if (keycode == 1 || keycode == 126 || keycode == 13 || keycode == 125)
+    {
+        if (c3d->step == 3)
+            c3d->step = 0;
+        else
+            c3d->step++;
+    }
     if (keycode == 126 || keycode == 125 || keycode == 124 || keycode == 123 \
 	|| keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13 )
         updateCameraPosition(keycode, c3d);
@@ -274,27 +282,60 @@ void	initorient(t_data *c3d)
 	}
 }
 
+int bear_claws(t_data *c3d)
+{
+    int x = 190;
+    int y = 400;
+    int xr = 390;
+    int yr = 400;
+    if (c3d->step == 0)
+    {
+        c3d->add_l = 0;
+        c3d->add_r = 0;
+    }
+    else if (c3d->step == 1)
+    {
+        c3d->add_l = 20;
+        c3d->add_r = -20;
+    }
+    else if (c3d->step == 2)
+    {
+        c3d->add_l = 0;
+        c3d->add_r = 0;
+    }
+    else if (c3d->step == 3)
+    {
+        c3d->add_l = -20;
+        c3d->add_r = 20;
+    }
+    
+    mlx_put_image_to_window(c3d->mlx, c3d->win, c3d->claw_left, x, y + c3d->add_l);
+    mlx_put_image_to_window(c3d->mlx, c3d->win, c3d->claw_right, xr, yr +c3d->add_r);
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
+    int x = 120;
+    int y = 1800;
     t_data *c3d;
     c3d = malloc(sizeof(t_data));
 	c3d->map = malloc(sizeof(t_map));
 	parsing(c3d->map, argv, argc, c3d);
+    c3d->step = 0;
     c3d->moveSpeed = 0.3;
     c3d->rotSpeed = 0.2;
     c3d->mlx = mlx_init();
     c3d->win = mlx_new_window(c3d->mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
 	c3d->textnorth = c3d->map->north_path;
-	// ft_strdup("./sprites/NORTH.xpm");
 	c3d->textwest = c3d->map->west_path;
-	// ft_strdup("./sprites/WEST.xpm");
 	c3d->textsouth = c3d->map->south_path; 
-	// ft_strdup("./sprites/SOUTH.xpm");
 	c3d->texteast = c3d->map->east_path;
-	// ft_strdup("./sprites/EAST.xpm");
 	initorient(c3d);
 	inittext(c3d);
-    raycasting(c3d);  
+    c3d->claw_left = mlx_xpm_file_to_image(c3d->mlx, "./sprites/claw_left.xpm", &x, &y);
+    c3d->claw_right = mlx_xpm_file_to_image(c3d->mlx, "./sprites/claw_right.xpm", &x, &y);
+    raycasting(c3d);
 	mlx_hook(c3d->win, 2, 1L << 0, keyhandle, c3d);
 	mlx_hook(c3d->win, 6, 1L << 6, mouse_move, c3d);
 	mlx_hook(c3d->win, 17, 1L << 0, cubclose, c3d);
