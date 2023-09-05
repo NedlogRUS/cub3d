@@ -72,6 +72,4 @@ void	parsing(t_map *map, char **filename, int ac, t_data *c3d)
 	parse_map(map, c3d);
 	if (c3d->posX == -1)
 		parse_error("No player position");
-	// set_pos(map);
-	// convert_to_int(map);
 }
