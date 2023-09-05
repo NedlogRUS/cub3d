@@ -8,10 +8,10 @@
 # include <stdio.h>
 # include <math.h>
 
-# define SCREENWIDTH 640
-# define SCREENHEIGHT 480
-# define MAPWIDTH 33
-# define MAPHEIGHT 16
+// # define SCREENWIDTH 640
+// # define SCREENHEIGHT 480
+# define SCREENWIDTH 1280
+# define SCREENHEIGHT 720
 
 typedef struct s_map
 {

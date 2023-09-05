@@ -296,8 +296,6 @@ int main(int argc, char **argv)
 	initorient(c3d);
 	inittext(c3d);
     raycasting(c3d);
-	// mlx_destroy_image(c3d->mlx, c3d->image->img);
-	// free(c3d->image);
 	mlx_hook(c3d->win, 2, 1L << 0, keyhandle, c3d);
 	mlx_hook(c3d->win, 6, 1L << 6, mouse_move, c3d);
 	mlx_hook(c3d->win, 17, 1L << 0, cubclose, c3d);
