@@ -251,6 +251,7 @@ int main()
     return 0;
 }
 
+//
 // WEAST
     // c3d->dirX = 0; 
     // c3d->dirY = -1;
