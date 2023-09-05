@@ -1,16 +1,5 @@
 #include "cube3d.h"
 
-char worldMap[MAPWIDTH][MAPHEIGHT] =
-{
-  {'1','1','1','1','1'},
-  {'1','0','0','0','1'},
-  {'1','0','0','0','1'},
-  {'1','0','1','1','1'},
-  {'1','0','0','0','1'},
-  {'1','0','0','0','1'},
-  {'1','1','1','1','1'}
-};
-
 void raycasting(t_data *c3d)
 {
     mlx_clear_window(c3d->mlx, c3d->win);
@@ -85,7 +74,7 @@ void raycasting(t_data *c3d)
                 c3d->mapY += c3d->stepY;
                 c3d->side = 1;
             }
-            if (worldMap[c3d->mapX][c3d->mapY] == '1')
+            if (c3d->map->map_arr[c3d->mapX][c3d->mapY] == '1')
                 c3d->hit = 1;
         }
         if (c3d->side == 0)
@@ -154,33 +143,33 @@ int updateCameraPosition(int keycode, t_data *c3d)
 {
     if (keycode == 126 || keycode == 13)
     {
-        if (worldMap[(int)(c3d->posX + c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] != '1')
+        if (c3d->map->map_arr[(int)(c3d->posX + c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] != '1')
             c3d->posX += c3d->dirX * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY + c3d->dirY * c3d->moveSpeed)] != '1')
+        if (c3d->map->map_arr[(int)c3d->posX][(int)(c3d->posY + c3d->dirY * c3d->moveSpeed)] != '1')
             c3d->posY += c3d->dirY * c3d->moveSpeed;
         raycasting(c3d);
     }
     if (keycode == 125 || keycode == 1) 
     {
-        if (worldMap[(int)(c3d->posX - c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] != '1')
+        if (c3d->map->map_arr[(int)(c3d->posX - c3d->dirX * c3d->moveSpeed)][(int)c3d->posY] != '1')
             c3d->posX -= c3d->dirX * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY - c3d->dirY * c3d->moveSpeed)] != '1')
+        if (c3d->map->map_arr[(int)c3d->posX][(int)(c3d->posY - c3d->dirY * c3d->moveSpeed)] != '1')
             c3d->posY -= c3d->dirY * c3d->moveSpeed;
         raycasting(c3d);
     }
 	if (keycode == 2)
     {
-        if (worldMap[(int)(c3d->posX + c3d->dirY * c3d->moveSpeed)][(int)c3d->posY] != '1')
+        if (c3d->map->map_arr[(int)(c3d->posX + c3d->dirY * c3d->moveSpeed)][(int)c3d->posY] != '1')
             c3d->posX += c3d->dirY * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY - c3d->dirX * c3d->moveSpeed)] != '1')
+        if (c3d->map->map_arr[(int)c3d->posX][(int)(c3d->posY - c3d->dirX * c3d->moveSpeed)] != '1')
             c3d->posY -= c3d->dirX * c3d->moveSpeed;
         raycasting(c3d);
     }
     if (keycode == 0) 
     {
-        if (worldMap[(int)(c3d->posX - c3d->dirY * c3d->moveSpeed)][(int)c3d->posY] != '1')
+        if (c3d->map->map_arr[(int)(c3d->posX - c3d->dirY * c3d->moveSpeed)][(int)c3d->posY] != '1')
             c3d->posX -= c3d->dirY * c3d->moveSpeed;
-        if (worldMap[(int)c3d->posX][(int)(c3d->posY + c3d->dirX * c3d->moveSpeed)] != '1')
+        if (c3d->map->map_arr[(int)c3d->posX][(int)(c3d->posY + c3d->dirX * c3d->moveSpeed)] != '1')
             c3d->posY += c3d->dirX * c3d->moveSpeed;
         raycasting(c3d);
     }
@@ -253,29 +242,57 @@ int	mouse_move(int x, int y, t_data *c3d)
 	return (0);
 }
 
-int main()
+void	initorient(t_data *c3d)
 {
-    t_data *c3d;
-	// t_map   *map;
-    c3d = malloc(sizeof(t_data));
-	// c3d->map = malloc(sizeof(t_map));
-	// parsing(c3d->map, argv, argc, c3d);
-    c3d->posX = 2;
-    c3d->posY = 2;
+	if (c3d->map->spawn_orient == 'W')
+	{
     c3d->dirX = 0; 
     c3d->dirY = -1;
     c3d->planeX = -0.66; 
     c3d->planeY = 0;
+	}
+	else if (c3d->map->spawn_orient == 'E')
+	{
+    c3d->dirX = 0; 
+    c3d->dirY = 1;
+    c3d->planeX = 0.66; 
+    c3d->planeY = 0;
+	}
+	else if (c3d->map->spawn_orient == 'S')
+	{
+    c3d->dirX = 1; 
+    c3d->dirY = 0;
+    c3d->planeX = 0; 
+    c3d->planeY = -0.66;
+	}
+	else if (c3d->map->spawn_orient == 'N')
+	{  
+	c3d->dirX = -1; 
+    c3d->dirY = 0;
+    c3d->planeX = 0; 
+    c3d->planeY = 0.66;
+	}
+}
+
+int main(int argc, char **argv)
+{
+    t_data *c3d;
+    c3d = malloc(sizeof(t_data));
+	c3d->map = malloc(sizeof(t_map));
+	parsing(c3d->map, argv, argc, c3d);
     c3d->moveSpeed = 0.3;
     c3d->rotSpeed = 0.2;
-	c3d->floorColor = 0x35960B;
-	c3d->ceilingColor = 0x6FA8DC;
     c3d->mlx = mlx_init();
     c3d->win = mlx_new_window(c3d->mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
-	c3d->textnorth = ft_strdup("./sprites/NORTH.xpm");
-	c3d->textwest = ft_strdup("./sprites/WEST.xpm");
-	c3d->textsouth = ft_strdup("./sprites/SOUTH.xpm");
-	c3d->texteast = ft_strdup("./sprites/EAST.xpm");
+	c3d->textnorth = c3d->map->north_path;
+	// ft_strdup("./sprites/NORTH.xpm");
+	c3d->textwest = c3d->map->west_path;
+	// ft_strdup("./sprites/WEST.xpm");
+	c3d->textsouth = c3d->map->south_path; 
+	// ft_strdup("./sprites/SOUTH.xpm");
+	c3d->texteast = c3d->map->east_path;
+	// ft_strdup("./sprites/EAST.xpm");
+	initorient(c3d);
 	inittext(c3d);
     raycasting(c3d);  
 	mlx_hook(c3d->win, 2, 1L << 0, keyhandle, c3d);
@@ -284,28 +301,3 @@ int main()
     mlx_loop(c3d->mlx);
     return 0;
 }
-
-//
-// WEAST
-    // c3d->dirX = 0; 
-    // c3d->dirY = -1;
-    // c3d->planeX = -0.66; 
-    // c3d->planeY = 0;
-
-// EAST
-//     c3d->dirX = 0; 
-//     c3d->dirY = 1;
-//     c3d->planeX = 0.66; 
-//     c3d->planeY = 0;
-
-// SOUTH
-//     c3d->dirX = 1; 
-//     c3d->dirY = 0;
-//     c3d->planeX = 0; 
-//     c3d->planeY = -0.66;
-
-// NORTH  
-// 	c3d->dirX = -1; 
-//     c3d->dirY = 0;
-//     c3d->planeX = 0; 
-//     c3d->planeY = 0.66;
