@@ -32,7 +32,7 @@ typedef struct s_data
 {
 	int		add_l;
 	int		add_r;
-	int		step;
+	int		stp;
 	void	*mlx;
 	void	*win;
 	double	posX;

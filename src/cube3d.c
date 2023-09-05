@@ -232,10 +232,10 @@ int keyhandle(int keycode, t_data *c3d)
         cubclose();
     if (keycode == 1 || keycode == 126 || keycode == 13 || keycode == 125)
     {
-        if (c3d->step == 3)
-            c3d->step = 0;
+        if (c3d->stp == 16)
+            c3d->stp = 0;
         else
-            c3d->step++;
+            c3d->stp++;
     }
     if (keycode == 126 || keycode == 125 || keycode == 124 || keycode == 123 \
 	|| keycode == 0 || keycode == 1 || keycode == 2 || keycode == 13 )
@@ -287,35 +287,51 @@ void	initorient(t_data *c3d)
 	}
 }
 
-int bear_claws(t_data *c3d)
+void    claws_util(t_data *c3d)
 {
-    int x = 190;
-    int y = 400;
-    int xr = 390;
-    int yr = 400;
-    if (c3d->step == 0)
+    if (c3d->stp == 0 || c3d->stp == 1 || c3d->stp == 8 || c3d->stp == 9)
     {
         c3d->add_l = 0;
         c3d->add_r = 0;
     }
-    else if (c3d->step == 1)
+    else if (c3d->stp == 2 || c3d->stp == 3 || c3d->stp == 6 || c3d->stp == 7)
+    {
+        c3d->add_l = 10;
+        c3d->add_r = -10;
+    }
+    else if (c3d->stp == 4 || c3d->stp == 5)
     {
         c3d->add_l = 20;
         c3d->add_r = -20;
     }
-    else if (c3d->step == 2)
+    else if (c3d->stp == 10 || c3d->stp == 11 || c3d->stp == 14 || c3d->stp == 15)
     {
-        c3d->add_l = 0;
-        c3d->add_r = 0;
+        c3d->add_l = -10;
+        c3d->add_r = 10;
     }
-    else if (c3d->step == 3)
+    else if (c3d->stp == 12 || c3d->stp == 13)
     {
         c3d->add_l = -20;
         c3d->add_r = 20;
     }
-    
-    mlx_put_image_to_window(c3d->mlx, c3d->win, c3d->claw_left, x, y + c3d->add_l);
-    mlx_put_image_to_window(c3d->mlx, c3d->win, c3d->claw_right, xr, yr +c3d->add_r);
+}
+
+int bear_claws(t_data *c3d)
+{
+    int x;
+    int y;
+    int xr;
+    int yr;
+
+    x = 190;
+    y = 400;
+    xr = 390;
+    yr = 400;
+    claws_util(c3d);
+    mlx_put_image_to_window(c3d->mlx, c3d->win,\
+     c3d->claw_left, x, y + c3d->add_l);
+    mlx_put_image_to_window(c3d->mlx, c3d->win, \
+    c3d->claw_right, xr, yr +c3d->add_r);
     return (0);
 }
 
@@ -324,11 +340,12 @@ int main(int argc, char **argv)
     int x = 120;
     int y = 1800;
     t_data *c3d;
+    
     c3d = malloc(sizeof(t_data));
 	c3d->map = malloc(sizeof(t_map));
 	parsing(c3d->map, argv, argc, c3d);
-    c3d->step = 0;
-    c3d->moveSpeed = 0.2;
+    c3d->stp = 0;
+    c3d->moveSpeed = 0.1;
     c3d->rotSpeed = 0.1;
     c3d->mlx = mlx_init();
     c3d->win = mlx_new_window(c3d->mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
