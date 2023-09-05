@@ -68,6 +68,7 @@ typedef struct s_data
 	char	*textsouth;
 	char	*texteast;
 	double	wallX;
+	struct s_img 	*image;
 	struct s_img	*wallT;
 	struct s_img	*north;
 	struct s_img	*west;

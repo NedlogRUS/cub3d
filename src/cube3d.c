@@ -2,31 +2,32 @@
 
 void raycasting(t_data *c3d)
 {
-    mlx_clear_window(c3d->mlx, c3d->win);
-    // Draw the ceiling (upper half of the screen)
+	c3d->image = malloc(sizeof(t_img));
+    c3d->image->img = mlx_new_image(c3d->mlx, SCREENWIDTH, SCREENHEIGHT);
+    c3d->image->addr = (int *)mlx_get_data_addr(c3d->image->img, &c3d->image->bits_per_pixel, &c3d->image->line_length, &c3d->image->endian);
     int y = 0;
     while (y < SCREENHEIGHT / 2)
     {
         int x = 0;
         while (x < SCREENWIDTH)
         {
-            mlx_pixel_put(c3d->mlx, c3d->win, x, y, c3d->ceilingColor);
+            c3d->image->addr[y * SCREENWIDTH + x] = c3d->ceilingColor;
             x++;
         }
         y++;
     }
-    // Draw the floor (lower half of the screen)
     y = SCREENHEIGHT / 2;
     while (y < SCREENHEIGHT)
     {
         int x = 0;
         while (x < SCREENWIDTH)
         {
-            mlx_pixel_put(c3d->mlx, c3d->win, x, y, c3d->floorColor);
+            c3d->image->addr[y * SCREENWIDTH + x] = c3d->floorColor;
             x++;
         }
         y++;
     }
+
     int x = 0;
     while (x < SCREENWIDTH)
     {
@@ -127,16 +128,20 @@ void raycasting(t_data *c3d)
         if (drawEnd >= SCREENHEIGHT)
             drawEnd = SCREENHEIGHT - 1;
         // Draw the textured wall column
-        int y = drawStart;
-        while (y < drawEnd)
-        {
-            int texY = (int)(((y - SCREENHEIGHT / 2 + texHeight / 2) * c3d->wallT->height) / texHeight);
-            int color = c3d->wallT->addr[texY * c3d->wallT->width + texX];
-            mlx_pixel_put(c3d->mlx, c3d->win, x, y, color);
-            y++;
-        }
-        x++;
+		int y = drawStart;
+		while (y < drawEnd)
+		{
+			int texY = (int)(((y - SCREENHEIGHT / 2 + texHeight / 2) * c3d->wallT->height) / texHeight);
+			int color = c3d->wallT->addr[texY * c3d->wallT->width + texX];
+			c3d->image->addr[y * SCREENWIDTH + x] = color;
+
+			y++;
+		}
+		x++;
     }
+    mlx_put_image_to_window(c3d->mlx, c3d->win, c3d->image->img, 0, 0);
+	mlx_destroy_image(c3d->mlx, c3d->image->img);
+	free(c3d->image);
 }
 
 int updateCameraPosition(int keycode, t_data *c3d)
@@ -280,21 +285,19 @@ int main(int argc, char **argv)
     c3d = malloc(sizeof(t_data));
 	c3d->map = malloc(sizeof(t_map));
 	parsing(c3d->map, argv, argc, c3d);
-    c3d->moveSpeed = 0.3;
-    c3d->rotSpeed = 0.2;
+    c3d->moveSpeed = 0.2;
+    c3d->rotSpeed = 0.1;
     c3d->mlx = mlx_init();
     c3d->win = mlx_new_window(c3d->mlx, SCREENWIDTH, SCREENHEIGHT, "Raycaster");
 	c3d->textnorth = c3d->map->north_path;
-	// ft_strdup("./sprites/NORTH.xpm");
 	c3d->textwest = c3d->map->west_path;
-	// ft_strdup("./sprites/WEST.xpm");
 	c3d->textsouth = c3d->map->south_path; 
-	// ft_strdup("./sprites/SOUTH.xpm");
 	c3d->texteast = c3d->map->east_path;
-	// ft_strdup("./sprites/EAST.xpm");
 	initorient(c3d);
 	inittext(c3d);
-    raycasting(c3d);  
+    raycasting(c3d);
+	// mlx_destroy_image(c3d->mlx, c3d->image->img);
+	// free(c3d->image);
 	mlx_hook(c3d->win, 2, 1L << 0, keyhandle, c3d);
 	mlx_hook(c3d->win, 6, 1L << 6, mouse_move, c3d);
 	mlx_hook(c3d->win, 17, 1L << 0, cubclose, c3d);
