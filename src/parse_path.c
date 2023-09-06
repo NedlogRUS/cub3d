@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adavitav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:48:17 by adavitav          #+#    #+#             */
-/*   Updated: 2023/09/01 17:48:18 by adavitav         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:39:12 by apanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,18 @@ void	trim_stuff(t_map *map)
 	char		*save;
 	char const	*nl;
 
-	save = map->north_path;
+	save = map->n_path;
 	nl = ft_strdup("\n");
-	map->north_path = ft_strtrim(map->north_path, nl);
+	map->n_path = ft_strtrim(map->n_path, nl);
 	free(save);
-	save = map->south_path;
-	map->south_path = ft_strtrim(map->south_path, nl);
+	save = map->s_path;
+	map->s_path = ft_strtrim(map->s_path, nl);
 	free(save);
-	save = map->west_path;
-	map->west_path = ft_strtrim(map->west_path, nl);
+	save = map->w_path;
+	map->w_path = ft_strtrim(map->w_path, nl);
 	free(save);
-	save = map->east_path;
-	map->east_path = ft_strtrim(map->east_path, nl);
+	save = map->e_path;
+	map->e_path = ft_strtrim(map->e_path, nl);
 	free(save);
 	save = map->ccolor;
 	map->ccolor = ft_strtrim(map->ccolor, nl);
@@ -61,13 +61,13 @@ int	add_info(char to_remove, t_map *map, char *ids, char *line)
 	if (*line == '\0' || *line == '\n')
 		parse_error("Nothing comes after identifier");
 	if (to_remove == 'N')
-		map->north_path = ft_strdup(line);
+		map->n_path = ft_strdup(line);
 	else if (to_remove == 'S')
-		map->south_path = ft_strdup(line);
+		map->s_path = ft_strdup(line);
 	else if (to_remove == 'W')
-		map->west_path = ft_strdup(line);
+		map->w_path = ft_strdup(line);
 	else if (to_remove == 'E')
-		map->east_path = ft_strdup(line);
+		map->e_path = ft_strdup(line);
 	else if (to_remove == 'C')
 		map->ccolor = ft_strdup(line);
 	else if (to_remove == 'F')
