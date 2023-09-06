@@ -52,10 +52,8 @@ void	trim_stuff(t_map *map)
 
 int	add_info(char to_remove, t_map *map, char *ids, char *line)
 {
-	printf("%s, %c\n", ids, to_remove);
 	while (*ids != to_remove && *ids)
 		ids++;
-	printf("[%s]\n", ids);
 	if (!*ids)
 		parse_error("Same id twice");
 	*ids = ' ';
