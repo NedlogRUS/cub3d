@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/05 21:39:52 by apanikov          #+#    #+#             */
+/*   Updated: 2023/09/06 15:00:39 by apanikov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
@@ -10,23 +22,33 @@
 
 # define SCREENWIDTH 640
 # define SCREENHEIGHT 480
-// # define SCREENWIDTH 1280
-// # define SCREENHEIGHT 720
 
 typedef struct s_map
 {
 	char	**map_arr;
 	int		**int_arr;
 	char	*line;
-	char	*north_path;
-	char	*south_path;
-	char	*west_path;
-	char	*east_path;
+	char	*n_path;
+	char	*s_path;
+	char	*w_path;
+	char	*e_path;
 	char	*ccolor;
 	char	*fcolor;
 	char	spawn_orient;
 	int		fd;
 }			t_map;
+
+typedef struct s_img
+{
+	void	*img;
+	int		*addr;
+	char	**data;
+	int		bpp;
+	int		ll;
+	int		endian;
+	int		width;
+	int		height;
+}				t_img;
 
 typedef struct s_data
 {
@@ -35,65 +57,57 @@ typedef struct s_data
 	int		stp;
 	void	*mlx;
 	void	*win;
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-	double	moveSpeed;
-	double	rotSpeed;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int		mapX;
-	int		mapY;
-	double	sideDistX;
-	double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	int		stepX;
-	int		stepY;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	double	movespeed;
+	double	rotspeed;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+	int		mapx;
+	int		mapy;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;
+	int		stepx;
+	int		stepy;
 	int		hit;
 	int		side;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
+	int		texx;
+	int		texy;
+	int		texheight;
+	int		lineheight;
+	int		drawstart;
+	int		drawend;
 	int		color;
-	double	oldDirX;
-	double	oldPlaneX;
-	int		floorColor;
-	int		ceilingColor;
+	double	olddirx;
+	double	oldplanex;
+	int		floorcolor;
+	int		ceilingcolor;
 	t_map	*map;
-	char	*textnorth;
-	char	*textwest;
-	char	*textsouth;
-	char	*texteast;
-	double	wallX;
-	struct s_img 	*image;
-	struct s_img	*wallT;
-	struct s_img	*north;
-	struct s_img	*west;
-	struct s_img	*south;
-	struct s_img	*east;
-	void			*claw_left;
-	void			*claw_right;
+	char	*txn;
+	char	*txw;
+	char	*txs;
+	char	*txe;
+	double	wallx;
+	t_img	*image;
+	t_img	*wallt;
+	t_img	*n;
+	t_img	*w;
+	t_img	*s;
+	t_img	*e;
+	void	*claw_left;
+	void	*claw_right;
 }				t_data;
 
-typedef struct	s_img
-{
-	void	*img;
-	int		*addr;
-	char 	**data;//
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		width;
-	int		height;
-}				t_img;
-
-void    parsing(t_map *map, char **filename, int ac, t_data *c3d);
+void	raycasting(t_data *c3d);
+void	parsing(t_map *map, char **filename, int ac, t_data *c3d);
 int		id_check(char *ids);
 void	arrcpy(char **src, char **dest);
 void	free_arr(char **to_free);
@@ -110,6 +124,13 @@ void	convert_to_int(t_map *map);
 void	get_texts_colors(t_map *map);
 int		arrsize(char **arr);
 void	trim_spaces(char **col_arr);
-int 	bear_claws(t_data *c3d);
+int		bear_claws(t_data *c3d);
+void	floor_ceiling(t_data *c3d);
+void	determine_ray_intersects_distances(t_data *c3d);
+void	hit_wall(t_data *c3d);
+void	calculating_parameters_rendering_wall(t_data *c3d);
+int		update_camera_position(int keycode, t_data *c3d);
+void	rotate_left(t_data *c3d);
+void	rotate_right(t_data *c3d);
 
 #endif

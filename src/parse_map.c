@@ -6,7 +6,7 @@
 /*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:47:55 by adavitav          #+#    #+#             */
-/*   Updated: 2023/09/05 18:02:02 by apanikov         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:10:02 by apanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	check_walls(t_map *map, int x, int y, t_data *c3d)
 		{
 			if (map->map_arr[y][x] == map->spawn_orient)
 			{
-				c3d->posX = y + 0.5;
-				c3d->posY = x + 0.5;
+				c3d->posx = y + 0.5;
+				c3d->posy = x + 0.5;
 				map->map_arr[y][x] = '0';
 			}
 			if (map->map_arr[y][x] == '0')
