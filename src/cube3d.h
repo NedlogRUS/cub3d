@@ -54,7 +54,7 @@ typedef struct s_data
 {
 	int		add_l;
 	int		add_r;
-	int		stp;
+	int		st;
 	void	*mlx;
 	void	*win;
 	double	posx;
@@ -132,5 +132,8 @@ void	calculating_parameters_rendering_wall(t_data *c3d);
 int		update_camera_position(int keycode, t_data *c3d);
 void	rotate_left(t_data *c3d);
 void	rotate_right(t_data *c3d);
+void	initclaws(t_data *c3d);
+void	claws_util(t_data *c3d);
+int		bear_claws(t_data *c3d);
 
 #endif

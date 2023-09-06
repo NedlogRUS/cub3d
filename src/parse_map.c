@@ -39,8 +39,6 @@ int	check_map(char **line, t_map *map)
 	return (1);
 }
 
-
-
 void	check_map_final(int fd, char *line)
 {
 	if (!line)
