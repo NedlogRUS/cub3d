@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/05 21:39:52 by apanikov          #+#    #+#             */
+/*   Updated: 2023/09/05 23:02:56 by apanikov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
@@ -57,6 +69,9 @@ typedef struct s_data
 	int		stepY;
 	int		hit;
 	int		side;
+	int 	texX;
+	int		texY;
+	int		texHeight;
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
@@ -93,6 +108,7 @@ typedef struct	s_img
 	int		height;
 }				t_img;
 
+void	raycasting(t_data *c3d);
 void    parsing(t_map *map, char **filename, int ac, t_data *c3d);
 int		id_check(char *ids);
 void	arrcpy(char **src, char **dest);
@@ -111,5 +127,9 @@ void	get_texts_colors(t_map *map);
 int		arrsize(char **arr);
 void	trim_spaces(char **col_arr);
 int 	bear_claws(t_data *c3d);
+void	floor_ceiling(t_data *c3d);
+void	determine_ray_intersects_distances(t_data *c3d);
+void	hit_wall(t_data *c3d);
+void	calculating_parameters_rendering_wall(t_data *c3d);
 
 #endif
