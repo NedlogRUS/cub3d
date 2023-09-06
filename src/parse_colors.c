@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adavitav <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:47:42 by adavitav          #+#    #+#             */
-/*   Updated: 2023/09/01 17:47:44 by adavitav         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:16:01 by apanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	hex_colors(int *ccolor, int *fcolor, t_data *c3d)
 
 	hex_c = (ccolor[0] << 16) | (ccolor[1] << 8) | ccolor[2];
 	hex_f = (fcolor[0] << 16) | (fcolor[1] << 8) | fcolor[2];
-	c3d->floorColor = hex_f;
-	c3d->ceilingColor = hex_c;
+	c3d->floorcolor = hex_f;
+	c3d->ceilingcolor = hex_c;
 }
 
 void	make_color_arr(char **rgb_arr, int *color_nums, int arr_size)
