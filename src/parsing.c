@@ -49,6 +49,7 @@ void	check_textures(char *arr)
 		i++;
 	}
 }
+
 void	call_check_textures(t_map *map)
 {
 	check_textures(map->s_path);
