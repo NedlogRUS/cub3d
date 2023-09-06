@@ -6,7 +6,7 @@
 /*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:39:52 by apanikov          #+#    #+#             */
-/*   Updated: 2023/09/06 15:00:39 by apanikov         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:44:27 by apanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,5 +135,7 @@ void	rotate_right(t_data *c3d);
 void	initclaws(t_data *c3d);
 void	claws_util(t_data *c3d);
 int		bear_claws(t_data *c3d);
+void	initorient(t_data *c3d);
+void	inittext(t_data *c3d);
 
 #endif

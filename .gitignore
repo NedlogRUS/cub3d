@@ -7,3 +7,4 @@ cub3d
 /get_next_line/obj
 .vscode/
 /libft/libft.a
+*.a
