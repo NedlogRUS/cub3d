@@ -6,7 +6,7 @@
 /*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:39:39 by apanikov          #+#    #+#             */
-/*   Updated: 2023/09/06 16:45:13 by apanikov         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:23:20 by apanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	cubclose(void)
 {
-	printf("Thanks for playing\n");
-	system("leaks cub3D");
+	printf("Thanks for playing 🥰\n");
 	exit(0);
 }
 
@@ -48,13 +47,8 @@ int	mouse_move(int x, int y, t_data *c3d)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+void	initmlx(t_data *c3d)
 {
-	t_data	*c3d;
-
-	c3d = malloc(sizeof(t_data));
-	c3d->map = malloc(sizeof(t_map));
-	parsing(c3d->map, argv, argc, c3d);
 	c3d->st = 0;
 	c3d->movespeed = 0.11;
 	c3d->rotspeed = 0.11;
@@ -64,6 +58,16 @@ int	main(int argc, char **argv)
 	c3d->txw = c3d->map->w_path;
 	c3d->txs = c3d->map->s_path;
 	c3d->txe = c3d->map->e_path;
+}
+
+int	main(int argc, char **argv)
+{
+	t_data	*c3d;
+
+	c3d = malloc(sizeof(t_data));
+	c3d->map = malloc(sizeof(t_map));
+	parsing(c3d->map, argv, argc, c3d);
+	initmlx(c3d);
 	initorient(c3d);
 	inittext(c3d);
 	initclaws(c3d);
