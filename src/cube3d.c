@@ -6,7 +6,7 @@
 /*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 21:39:39 by apanikov          #+#    #+#             */
-/*   Updated: 2023/09/07 19:23:20 by apanikov         ###   ########.fr       */
+/*   Updated: 2023/09/07 21:32:11 by apanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	initmlx(t_data *c3d)
 {
 	c3d->st = 0;
 	c3d->movespeed = 0.11;
-	c3d->rotspeed = 0.11;
+	c3d->rotspeed = 0.07;
 	c3d->mlx = mlx_init();
 	c3d->win = mlx_new_window(c3d->mlx, SCREENWIDTH, SCREENHEIGHT, "cub3D");
 	c3d->txn = c3d->map->n_path;
