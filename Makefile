@@ -8,7 +8,7 @@ OBJBDIR = obj_b
 MLX_DIR = ./mlx
 SRCS = $(addprefix $(SRCDIR)/, cube3d.c parsing.c parse_colors.c parse_map.c \
 	parse_path.c parse_utils.c convert_map.c raycasting.c raycasting2.c \
-	move_camera.c rotate_camera.c claws_stuff.c)
+	move_camera.c rotate_camera.c claws_stuff.c init.c)
 OBJS = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
 SRCBS = $(addprefix $(SRCBDIR)/, cube3d.c parsing.c parse_colors.c parse_map.c \
 	parse_path.c parse_utils.c convert_map.c raycasting.c raycasting2.c \
