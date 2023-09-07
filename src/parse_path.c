@@ -6,7 +6,7 @@
 /*   By: apanikov <apanikov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 17:48:17 by adavitav          #+#    #+#             */
-/*   Updated: 2023/09/06 14:39:12 by apanikov         ###   ########.fr       */
+/*   Updated: 2023/09/06 17:19:15 by apanikov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	trim_stuff(t_map *map)
 
 int	add_info(char to_remove, t_map *map, char *ids, char *line)
 {
-	while (*ids != to_remove)
+	while (*ids != to_remove && *ids)
 		ids++;
-	if (!ids)
+	if (!*ids)
 		parse_error("Same id twice");
 	*ids = ' ';
 	space_skip(&line);
