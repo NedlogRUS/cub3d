@@ -1,8 +1,10 @@
 
 .DS_Store
-cub3d
+cub3D
+cub3D_bonus
 *.o
 /obj
+/obj_b
 /libft/obj
 /get_next_line/obj
 .vscode/
